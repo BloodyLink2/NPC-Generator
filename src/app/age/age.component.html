@@ -1,0 +1,7 @@
+<div *ngFor="let a of ageDetails; let i = index" class="col-1 float-left">
+  <label>Age</label>
+  <div class="custom-control custom-radio custom-control-inline">
+      <input type="radio" id="ageControl-{{a.value}}" name="ageControl" class="custom-control-input" [value]="a.value">
+      <label class="custom-control-label" for="ageControl-{{a.value}}">{{a.name}}</label>
+  </div>
+</div>

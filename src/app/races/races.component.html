@@ -1,0 +1,10 @@
+<div class="form-group">
+  <label for="raceControl">Race</label>
+  <input type="text" class="form-control col-12" id="raceControl" [disabled]="isDisabled" [value]="raceName" placeholder="Race">
+  
+</div>
+<div class="custom-control custom-checkbox float-left">
+  <input type="checkbox" class="custom-control-input" (change)="CustomizeRace()" id="customizeRace">
+  <label class="custom-control-label col-4" for="customizeRace">Custom</label>
+</div>
+<button (click)="GenerateRace()" [disabled]="!isDisabled" class="btn btn-primary">Randomise</button>

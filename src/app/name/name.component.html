@@ -1,0 +1,10 @@
+<div class="form-group">
+    <label for="exampleFormControlInput1">Name</label>
+    <input type="text" class="form-control" [value]="fullName" [disabled]="isDisabled" id="nameInput" placeholder="Name">
+
+  </div>    
+  <div class="custom-control custom-checkbox float-left">
+    <input type="checkbox" class="custom-control-input" (change)="CustomizeName()" id="customizeName">
+    <label class="custom-control-label col-4" for="customizeName">Custom</label>
+  </div>
+  <button (click)="GenerateName()" [disabled]="!isDisabled" class="btn btn-primary">Randomise</button>

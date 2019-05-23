@@ -1,0 +1,10 @@
+<div class="form-group">
+    <label for="exampleFormControlInput1">Origin</label>
+    <input type="text" class="form-control" [value]="origin" [disabled]="isDisabled" id="originInput" placeholder="Name">
+
+  </div>    
+  <div class="custom-control custom-checkbox float-left">
+    <input type="checkbox" class="custom-control-input" (change)="CustomiseOrigin()" id="customiseOrigin">
+    <label class="custom-control-label col-4" for="customiseOrigin">Custom</label>
+  </div>
+  <button (click)="RandomiseOrigin()" [disabled]="!isDisabled" class="btn btn-primary">Randomise</button>

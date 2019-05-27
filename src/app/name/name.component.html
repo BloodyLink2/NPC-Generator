@@ -1,10 +1,10 @@
-<div class="form-group">
-    <label for="exampleFormControlInput1">Name</label>
-    <input type="text" class="form-control" [value]="fullName" [disabled]="isDisabled" id="nameInput" placeholder="Name">
-
+<div class="col-lg-12 col-md-12 col-sm-12">
+  <div class="form-group">
+      <label for="exampleFormControlInput1">Name</label>
+      <input type="text" [className]="!disabled ? 'form-control disabled bg-dark-dl text-white border-dl' : 'form-control bg-dark-dl text-white border-dl'" class="form-control" [value]="fullName" [disabled]="isDisabled" id="nameInput" placeholder="Name">
   </div>    
-  <div class="custom-control custom-checkbox float-left">
-    <input type="checkbox" class="custom-control-input" (change)="CustomizeName()" id="customizeName">
-    <label class="custom-control-label col-4" for="customizeName">Custom</label>
+  <div class="float-right">
+      <img src="../../assets/icons/edit icon 313x313.png" class="c-pointer mr-2" (click)="EditName()"  width="31" height="31" />
+      <img src="../../assets/icons/randomise icon 313x313.png" class="c-pointer" (click)="GenerateName()"  width="31" height="31" />
   </div>
-  <button (click)="GenerateName()" [disabled]="!isDisabled" class="btn btn-primary">Randomise</button>
+</div>

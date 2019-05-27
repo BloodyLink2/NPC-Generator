@@ -1,6 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { Races } from '../races'
 import { race } from 'rxjs';
+import{HttpClient,HttpHeaders} from '@angular/common/http';
+
+const httpOptions ={
+  headers : new HttpHeaders({
+    'Access-Control-Allow-Origin': '*'
+  })
+}
+
+
 
 @Component({
   selector: 'app-races',
@@ -10,34 +19,47 @@ import { race } from 'rxjs';
 
 
 export class RacesComponent implements OnInit {
-  nameArray = ["Human", "Elves", "Dwarves", "Goblin", "Orc", "Demon", "Devil", "Dragon"]
-  races: Races[] = [];
-  raceName: string = "";
-  isDisabled: Boolean = true;
-  constructor() {
-    
+  
+  raceUrl:string = "http://localhost:81/NPC-Api/api/crud/select.php?tableName=races&lang=2";
+  isDisabled: boolean = true;
+  raceList: Array<Races> = [];
+  value: string = "";
+  id: number = 0;
+  randonumber: number = 0;
+
+  constructor(private http: HttpClient) { 
+    this.getData();
   }
+
   ngOnInit() {
-    for(var i = 0; i < this.nameArray.length; i++){
-      let race = new Races();
-      race.id = i;
-      race.name = this.nameArray[i];
-      this.races.push(race);
-    }
-    this.raceName = this.nameArray[Math.round(Math.random() * (this.nameArray.length - 1) + 1)]
   }
 
-  CustomizeRace(){
+  getData(){
+    this.http.get<Races[]>(this.raceUrl, httpOptions).subscribe((res) => {
+      this.raceList = res;
+      this.randonumber = Math.round(Math.random() * (this.raceList.length - 1));
+      this.raceList[this.randonumber].isSelected = true;
+      this.value = this.raceList[this.randonumber].raceName;
+      console.log(this.randonumber);
+    });
+  }
+
+  SetValue(gender:string, id: number){
+    this.value = gender;
+    this.id = id;
+  }
+  Randomise(){
+    for(var i = 0; i < this.raceList.length; i++){
+      this.raceList[i].isSelected = false;
+    }
+    this.randonumber = Math.round(Math.random() * (this.raceList.length - 1));
+    console.log(this.randonumber);
+    this.raceList[this.randonumber].isSelected = true;
+    this.value = this.raceList[this.randonumber].raceName;
+    this.id = this.raceList[this.randonumber].id;
+  }
+  Edit(){
     this.isDisabled = !this.isDisabled;
-    if(!this.isDisabled){
-      this.raceName = "";
-    }else{
-      this.raceName = this.nameArray[Math.round(Math.random() * (this.nameArray.length - 1) + 1)]
-    }
-  }
-
-  GenerateRace(){
-    this.raceName = this.nameArray[Math.round(Math.random() * (this.nameArray.length - 1) + 1)]
   }
 
 }

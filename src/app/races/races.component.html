@@ -1,10 +1,17 @@
-<div class="form-group">
-  <label for="raceControl">Race</label>
-  <input type="text" class="form-control col-12" id="raceControl" [disabled]="isDisabled" [value]="raceName" placeholder="Race">
-  
+<div class="col-lg-12 col-md-12 col-sm-12">
+    <div class="form-group">
+        <label for="exampleFormControlInput1">Race</label>
+        <input type="text" [className]="!isDisabled ? 'form-control disabled  bg-dark-dl text-white border-dl' : 'form-control  bg-dark-dl text-white border-dl'" class="form-control" [value]="value" [disabled]="isDisabled" id="nameInput" placeholder="">
+        <input type="hidden" [value]="id">
+    </div>    
 </div>
-<div class="custom-control custom-checkbox float-left">
-  <input type="checkbox" class="custom-control-input" (change)="CustomizeRace()" id="customizeRace">
-  <label class="custom-control-label col-4" for="customizeRace">Custom</label>
+<div class="float-right pt-3">
+    <div class="dropdown">
+        <img src="../../assets/icons/edit icon 313x313.png" class="c-pointer mr-2" (click)="Edit()"  width="31" height="31" />
+        <img src="../../assets/icons/randomise icon 313x313.png" class="c-pointer" (click)="Randomise()"  width="31" height="31" />
+        <img src="../../assets/icons/dropdown dots 313x313.png" class="c-pointer dropdown-toggle" width="31" height="31" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" />
+        <div class="dropdown-menu bg-dark-dl text-white font-size-18" aria-labelledby="dropdownMenuButton">
+          <span *ngFor="let r of raceList" (click)="SetValue(r.raceName, r.id)" class="dropdown-item c-pointer text-white border-dl p-2-5"><img [src]="r.isSelected ? '../../assets/icons/selected_icon_213x213.png' : '../../assets/icons/unselected_icon_214x214.png'" class="mr-2" height="18" width="18" />{{r.raceName}}</span>
+        </div>
+      </div>
 </div>
-<button (click)="GenerateRace()" [disabled]="!isDisabled" class="btn btn-primary">Randomise</button>

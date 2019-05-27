@@ -8,6 +8,8 @@ import { AgeComponent } from './age/age.component';
 import { NameComponent } from './name/name.component';
 import { GenderComponent } from './gender/gender.component';
 import { OriginComponent } from './origin/origin.component';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { TraitsComponent } from './traits/traits.component';
 
 @NgModule({
   declarations: [
@@ -16,11 +18,13 @@ import { OriginComponent } from './origin/origin.component';
     AgeComponent,
     NameComponent,
     GenderComponent,
-    OriginComponent
+    OriginComponent,
+    TraitsComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

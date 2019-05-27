@@ -1,4 +1,13 @@
 import { Component, OnInit } from '@angular/core';
+import{HttpClient,HttpHeaders} from '@angular/common/http';
+import { Observable } from 'rxjs';
+import {Age} from '../age';
+
+const httpOptions ={
+  headers : new HttpHeaders({
+    'Access-Control-Allow-Origin': '*'
+  })
+}
 
 @Component({
   selector: 'app-age',
@@ -6,23 +15,47 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./age.component.css']
 })
 export class AgeComponent implements OnInit {
-  ageDetails = [
-    {name: "0", value: "0"},
-    {name: "1", value: "10"},
-    {name: "2", value: "20"},
-    {name: "3", value: "30"},
-    {name: "4", value: "40"},
-    {name: "5", value: "50"},
-    {name: "6", value: "60"},
-    {name: "7", value: "70"},
-    {name: "8", value: "80"},
-    {name: "9", value: "90"},
-    {name: "10", value: "100"},
-  ]
-  constructor() { }
+  ages: Array<Age>;
+  ageUrl:string = "http://localhost:81/NPC-Api/api/crud/select.php?tableName=age&lang=2";
+  value:string = "";
+  ageid:number = 0;
+  isDisabled: boolean = true;
+  randoNumber: number = 0;
+  constructor(private http: HttpClient) {     
+    this.getData();
+  }
 
   ngOnInit() {
     
+  }
+
+  getData(){
+    this.http.get<Age[]>(this.ageUrl, httpOptions).subscribe((res) => {
+      this.ages = res;
+      this.randoNumber = Math.round(Math.random() * (this.ages.length - 1));
+      this.value = this.ages[this.randoNumber].age;
+      this.ages[this.randoNumber].isSelected = true;
+    });
+    
+  }
+
+  Edit(){
+    this.isDisabled = !this.isDisabled;
+  }
+
+  SetValue(age:string, id: number){
+    this.value = age;
+    this.ageid = id;
+  }
+
+  Randomise(){
+    for(var i = 0; i < this.ages.length; i++){
+      this.ages[i].isSelected = false;
+    }
+    this.randoNumber = Math.round(Math.random() * (this.ages.length - 1));
+    this.value = this.ages[this.randoNumber].age;
+    this.ageid = this.ages[this.randoNumber].id;
+    this.ages[this.randoNumber].isSelected = true;
   }
 
 }

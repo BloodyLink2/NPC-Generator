@@ -1,4 +1,6 @@
 export class Races {
     id: number;
-    name: string;
+    raceName: string;
+    description: string;
+    isSelected: boolean;
 }

@@ -15,21 +15,20 @@ export class NameComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.fullName = this.firstNameList[Math.round(Math.random() * (this.firstNameList.length - 1) + 1)] + " " + this.lastNameList[Math.round(Math.random() * (this.lastNameList.length - 1) + 1)];
+    this.fullName = this.firstNameList[Math.round(Math.random() * (this.firstNameList.length - 1))] + " " + this.lastNameList[Math.round(Math.random() * (this.lastNameList.length - 1))];
   }
 
-  CustomizeName(){
+  EditName(){
     this.isDisabled = !this.isDisabled; 
     if(!this.isDisabled){
-      this.fullName = "";
-    }else{
-      this.fullName = this.firstNameList[Math.round(Math.random() * (this.firstNameList.length - 1) + 1)] + " " + this.lastNameList[Math.round(Math.random() * (this.lastNameList.length - 1) + 1)];
+      }else{
+      this.fullName = this.firstNameList[Math.round(Math.random() * (this.firstNameList.length - 1))] + " " + this.lastNameList[Math.round(Math.random() * (this.lastNameList.length - 1))];
     }
   }
 
   GenerateName(){
-    this.firstName = this.firstNameList[Math.round(Math.random() * (this.firstNameList.length - 1) + 1)];
-    this.lastName = this.lastNameList[Math.round(Math.random() * (this.lastNameList.length - 1) + 1)];
+    this.firstName = this.firstNameList[Math.round(Math.random() * (this.firstNameList.length - 1))];
+    this.lastName = this.lastNameList[Math.round(Math.random() * (this.lastNameList.length - 1))];
     this.fullName = this.firstName + " " + this.lastName;
   }
 

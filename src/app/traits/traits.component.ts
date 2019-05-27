@@ -14,7 +14,7 @@ const httpOptions ={
 export class TraitsComponent implements OnInit {
 
   traits: Array<Traits>;
-  traitUrl:string = "http://localhost:81/NPC-Api/api/crud/select.php?tableName=personality_traits&lang=2";
+  traitUrl:string = "api/crud/select.php?tableName=personality_traits&lang=2";
   value:string = "";
   id:string = "";
   isDisabled: boolean = true;

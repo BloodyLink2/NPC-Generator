@@ -17,7 +17,7 @@ const httpOptions ={
 
 export class GenderComponent implements OnInit {
 
-  genderUrl:string = "http://localhost:81/NPC-Api/api/crud/select.php?tableName=gender&lang=2";
+  genderUrl:string = "api/crud/select.php?tableName=gender&lang=2";
   isDisabled: boolean = true;
   genderList: Array<Gender> = [];
   value: string = "";

@@ -16,7 +16,7 @@ const httpOptions ={
 })
 export class AgeComponent implements OnInit {
   ages: Array<Age>;
-  ageUrl:string = "http://localhost:81/NPC-Api/api/crud/select.php?tableName=age&lang=2";
+  ageUrl:string = "api/crud/select.php?tableName=age&lang=2";
   value:string = "";
   ageid:number = 0;
   isDisabled: boolean = true;

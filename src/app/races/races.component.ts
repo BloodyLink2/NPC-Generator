@@ -20,7 +20,7 @@ const httpOptions ={
 
 export class RacesComponent implements OnInit {
   
-  raceUrl:string = "http://localhost:81/NPC-Api/api/crud/select.php?tableName=races&lang=2";
+  raceUrl:string = "api/crud/select.php?tableName=races&lang=2";
   isDisabled: boolean = true;
   raceList: Array<Races> = [];
   value: string = "";

@@ -10,6 +10,10 @@ import { GenderComponent } from './gender/gender.component';
 import { OriginComponent } from './origin/origin.component';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { TraitsComponent } from './traits/traits.component';
+import { QuirksComponent } from './quirks/quirks.component';
+import { TrinketsComponent } from './trinkets/trinkets.component';
+import { OccupationsComponent } from './occupations/occupations.component';
+import { AppearanceComponent } from './appearance/appearance.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +23,11 @@ import { TraitsComponent } from './traits/traits.component';
     NameComponent,
     GenderComponent,
     OriginComponent,
-    TraitsComponent
+    TraitsComponent,
+    QuirksComponent,
+    TrinketsComponent,
+    OccupationsComponent,
+    AppearanceComponent
   ],
   imports: [
     BrowserModule,

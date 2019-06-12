@@ -1,11 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import{HttpClient,HttpHeaders} from '@angular/common/http';
+import { Global } from '../global';
 
 const httpOptions ={
   headers : new HttpHeaders({
     'Access-Control-Allow-Origin': '*'
   })
 }
+
+let settings: Global = new Global();
 
 @Component({
   selector: 'app-origin',
@@ -24,7 +27,7 @@ export class OriginComponent implements OnInit {
   {id: 8, origin: "Celtic", isSelected: false}
   ]
  
-  originUrl:string = "http://localhost:81/NPC-Api/api/crud/select.php?tableName=origin&lang=2";
+  originUrl:string = (settings.isLocal ? settings.localUrl : settings.hostUrl) + "action=origin&lang=2";
   isDisabled: boolean = true;
   originList: Array<Origin> = [];
   value: string = "";
@@ -48,8 +51,8 @@ export class OriginComponent implements OnInit {
     // });
   }
 
-  SetValue(gender:string, id: number){
-    this.value = gender;
+  SetValue(origin:string, id: number){
+    this.value = origin;
     this.id = id;
   }
   Randomise(){

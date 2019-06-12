@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import{HttpClient,HttpHeaders} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import {Age} from '../age';
+import { Global } from '../global'
+
 
 const httpOptions ={
   headers : new HttpHeaders({
@@ -9,14 +11,17 @@ const httpOptions ={
   })
 }
 
+let settings: Global = new Global();
+
 @Component({
   selector: 'app-age',
   templateUrl: './age.component.html',
   styleUrls: ['./age.component.css']
 })
 export class AgeComponent implements OnInit {
+  app: Global;
   ages: Array<Age>;
-  ageUrl:string = "api/crud/select.php?tableName=age&lang=2";
+  ageUrl:string = (settings.isLocal ? settings.localUrl : settings.hostUrl) + "select.php?action=age&lang=2";
   value:string = "";
   ageid:number = 0;
   isDisabled: boolean = true;

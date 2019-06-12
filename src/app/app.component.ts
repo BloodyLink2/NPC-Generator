@@ -6,6 +6,9 @@ import { RacesComponent } from './races/races.component'
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
+
 export class AppComponent {
-  title = 'NPC-Generator';
+  title: string = 'NPC-Generator';
+  isLocal: boolean = true;
+
 }

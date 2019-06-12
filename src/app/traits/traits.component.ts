@@ -1,10 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import{HttpClient,HttpHeaders} from '@angular/common/http';
+import { Global } from '../global';
+
 const httpOptions ={
   headers : new HttpHeaders({
     'Access-Control-Allow-Origin': '*'
   })
 }
+
+let settings: Global = new Global();
 
 @Component({
   selector: 'app-traits',
@@ -12,9 +16,8 @@ const httpOptions ={
   styleUrls: ['./traits.component.css']
 })
 export class TraitsComponent implements OnInit {
-
   traits: Array<Traits>;
-  traitUrl:string = "api/crud/select.php?tableName=personality_traits&lang=2";
+  traitUrl:string = (settings.isLocal ? settings.localUrl : settings.hostUrl) + "select.php?action=personality_traits&lang=2";
   value:string = "";
   id:string = "";
   isDisabled: boolean = true;

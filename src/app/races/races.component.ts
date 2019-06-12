@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Races } from '../races'
 import { race } from 'rxjs';
 import{HttpClient,HttpHeaders} from '@angular/common/http';
+import { Global } from '../global';
+
 
 const httpOptions ={
   headers : new HttpHeaders({
@@ -9,7 +11,7 @@ const httpOptions ={
   })
 }
 
-
+let settings: Global = new Global();
 
 @Component({
   selector: 'app-races',
@@ -19,8 +21,8 @@ const httpOptions ={
 
 
 export class RacesComponent implements OnInit {
-  
-  raceUrl:string = "api/crud/select.php?tableName=races&lang=2";
+ 
+  raceUrl:string = (settings.isLocal ? settings.localUrl : settings.hostUrl) + "select.php?action=races&lang=2";
   isDisabled: boolean = true;
   raceList: Array<Races> = [];
   value: string = "";

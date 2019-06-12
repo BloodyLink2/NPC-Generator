@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import{HttpClient,HttpHeaders} from '@angular/common/http';
+import { Global } from '../global';
 
 const httpOptions ={
   headers : new HttpHeaders({
@@ -7,6 +8,7 @@ const httpOptions ={
   })
 }
 
+let settings: Global = new Global();
 
 @Component({
   selector: 'app-gender',
@@ -17,7 +19,7 @@ const httpOptions ={
 
 export class GenderComponent implements OnInit {
 
-  genderUrl:string = "api/crud/select.php?tableName=gender&lang=2";
+  genderUrl:string = (settings.isLocal ? settings.localUrl : settings.hostUrl) + "select.php?action=gender&lang=2"
   isDisabled: boolean = true;
   genderList: Array<Gender> = [];
   value: string = "";

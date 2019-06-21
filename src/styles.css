@@ -52,6 +52,17 @@
     margin-left: -2px !important;
 }
 
-.border-all-dl{
-    border: 1px solid #fb5b03;
+.border-left-dl{
+    border-left: 1px solid #fb5b03;
+}
+
+@media(max-width: 700px){
+    .border-left-dl-max-500{
+        border-left: 1px solid #fb5b03;
+        border-right: none !important;
+    }   
+}
+
+.border-right-dl{
+    border-right: 1px solid #fb5b03;
 }

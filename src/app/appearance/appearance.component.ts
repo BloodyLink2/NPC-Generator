@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import{HttpClient,HttpHeaders} from '@angular/common/http';
 import { Global } from '../global';
+import { randomBytes } from 'crypto';
+import { type } from 'os';
+import { Observable } from 'rxjs/';
+import { resolve } from 'dns';
 
 const httpOptions ={
   headers : new HttpHeaders({
@@ -19,47 +23,73 @@ export class AppearanceComponent implements OnInit {
 
   typeList: Array<string> = [];
   appearance: Array<Appearance> = [];
-  value: string;
+  value: string = "";
   id: number;
-  randoType: number;
-  randoNumber: number;
+  randoType: number = 0;
+  randoNumber: number = 0;
   lastPickedType: string = "";
+  appearanceList: Array<Appearance> = [];
   url: string = (settings.isLocal ? settings.localUrl : settings.hostUrl) + "select.php?action=appearance&lang=2&type=build";
-  typeUrl: string = (settings.isLocal ? settings.localUrl : settings.hostUrl) + "select.php?action=appearance&lang=2&type=build";
-
+  typeUrl: string = (settings.isLocal ? settings.localUrl : settings.hostUrl) + "type.php?action=appearance&lang=2";
+  selectedTypes: Array<number> = [];
   constructor(private http: HttpClient) { 
     this.GetTypeList()
     
 }
 
-  GetData(type: string){
-    (settings.isLocal ? settings.localUrl : settings.hostUrl) + "select.php?action=appearance&lang=2&type=" + type;
-    this.http.get<Appearance[]>(this.url, httpOptions).pipe().subscribe((res) => {
-      this.appearance = res;
-      this.Randomise();
-    });
+  async GetData(typeList: Array<number>)   {
+    for(var i = 0; i < typeList.length; i++){
+      this.url = (settings.isLocal ? settings.localUrl : settings.hostUrl) + "select.php?action=appearance&lang=2&type=" + typeList[i];
+      const ret = await this.http.get<Appearance[]>(this.url, httpOptions).pipe().toPromise();
+      this.randoNumber = this.GetRandomNumberForData();
+      if(i == 0){
+        this.value = ret[this.randoNumber].appearance
+        this.id = ret[this.randoNumber].id;
+      }else{
+        this.value += ", " + ret[this.randoNumber].appearance
+        this.id += ret[this.randoNumber].id;
+      }
+    }
     
   }
 
   GetTypeList(){
-    this.typeUrl = (settings.isLocal ? settings.localUrl : settings.hostUrl) + "type.php?action=appearance";
-    this.http.get<string[]>(this.url, httpOptions).subscribe((res) => {
+    this.typeUrl = (settings.isLocal ? settings.localUrl : settings.hostUrl) + "select.php?action=type&lang=2";
+    this.http.get<string[]>(this.typeUrl, httpOptions).subscribe((res) => {
       this.typeList = res;
       for(var i = 0; i < 3; i++){
-        this.randoType = Math.round(Math.random() * (this.typeList.length - 1));
-        if(this.typeList[this.randoType] != this.lastPickedType){
-        this.GetData(this.typeList[this.randoType]);
-        this.lastPickedType = this.typeList[this.randoType];
-        }
-        else{
-        this.randoType = Math.round(Math.random() * (this.typeList.length - 1));
-        this.GetData(this.typeList[this.randoType]);
-        this.lastPickedType = this.typeList[this.randoType];
+        this.randoType = this.GetRandomNumberForTypes()
+        this.selectedTypes.push(this.randoType);
+      }
+      for(var i = 0; i < this.selectedTypes.length; i++){
+        console.log(this.selectedTypes[i]);
+      }
+      const data = this.GetData(this.selectedTypes);
+      
+    });
+    
+  }
+  
+  GetRandomNumberForData(){
+    this.randoNumber = Math.round(Math.random() * (this.appearance.length - 1)) + 1;
+    for(var i = 0; i < this.appearance.length; i++){
+      if(this.selectedTypes[i] == this.randoType){
+        this.GetRandomNumberForTypes();
       }
     }
-    });
-
+    return this.randoType;
   }
+
+  GetRandomNumberForTypes(){
+    this.randoType = Math.round(Math.random() * (this.typeList.length - 1)) + 1 ;
+    for(var i = 0; i < this.selectedTypes.length; i++){
+      if(this.selectedTypes[i] == this.randoType){
+        this.GetRandomNumberForTypes();
+      }
+    }
+    return this.randoType;
+  }
+  
 
   SetValue(trinket:string, id: number){
     this.value = trinket;
@@ -67,9 +97,7 @@ export class AppearanceComponent implements OnInit {
   }
 
   Randomise(){
-    this.randoNumber = Math.round(Math.random() * (this.appearance.length - 1));
-    this.value += this.appearance[this.randoNumber].appearance + ",";
-    this.id = this.appearance[this.randoNumber].id;
+    this.GetTypeList();
   }
 
 

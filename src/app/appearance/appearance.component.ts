@@ -1,10 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import{HttpClient,HttpHeaders} from '@angular/common/http';
 import { Global } from '../global';
-import { randomBytes } from 'crypto';
-import { type } from 'os';
-import { Observable } from 'rxjs/';
-import { resolve } from 'dns';
+
 
 const httpOptions ={
   headers : new HttpHeaders({
